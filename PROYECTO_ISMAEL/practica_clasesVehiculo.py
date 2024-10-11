@@ -13,16 +13,16 @@ class Vehiculo:
             self.en_marcha=True
 
     def marcha(self):
-        if self.en_marcha:
-            consumo_de_conbustible=0.1
-            self.gasolina_actual=max(0,self.gasolina_actual-consumo_de_conbustible)
-            print(f'el vehiculo{self.marca}esta en marcha. su nivel de conbustible actual es{self.gasolina_actual}')
-            if self.gasolina_actual<= 0:
-             print('el vehiculo se ha detenido, nivel de conbustible 0')
-             self.en_marcha=False
+        while self.gasolina_actual> 0:
+            self.gasolina_actual-=1
+            print(f"El vehiculo {self.tipo} con marca {self.marca} esta en marcha, conbustible restante: {self.gasolina_actual}")
+
+            if self.gasolina_actual<0.1*self.gasolina:
+                print(f"El {self.tipo} con marca {self.marca} esta a nivel de conbustible  bajo, ya que bajor a su capacidad debajo del 10%, conbustible restante {self.gasolina_actual}")
+
+            if self.gasolina_actual==0:
+                print(f'el vehiculo {self.tipo} con marca {self.marca} se ha detenido ya que la gasolina se acabo')
             
-        else:
-            print('el vehiculo no esta en marcha')
 
 
     def __str__(self):
@@ -38,12 +38,13 @@ class Carro(Vehiculo):
         super().__init__(marca,conbustible,gasolina,gasolina_actual)
         self.tipo='Carro'
         
-moto=Moto('yamaha','corriente',30,0.5)
+moto=Moto('yamaha','corriente',30,15)
 carro=Carro('chevrolet','Diesel',50,10)
 print(moto)
 print(carro)
+print(type(moto))
+print(type(carro))
+
 moto.encender()
-carro.encender()
 moto.marcha()
-carro.marcha()
 
